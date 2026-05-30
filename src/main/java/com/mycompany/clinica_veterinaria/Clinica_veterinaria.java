@@ -7,9 +7,14 @@ public class Clinica_veterinaria {
         System.setProperty("swing.aatext", "true");
 
         try {
-            // L&F nativo del sistema operativo (Windows en Windows, Mac en Mac...)
-            javax.swing.UIManager.setLookAndFeel(
-                javax.swing.UIManager.getSystemLookAndFeelClassName());
+            // Nimbus respeta los colores personalizados definidos en el IDE
+            for (javax.swing.UIManager.LookAndFeelInfo info :
+                    javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
         } catch (Exception ex) { /* queda el Metal por defecto */ }
 
         repararAdmin();
