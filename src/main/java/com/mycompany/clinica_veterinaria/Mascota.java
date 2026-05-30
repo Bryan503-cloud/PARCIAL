@@ -7,8 +7,17 @@ public class Mascota extends javax.swing.JInternalFrame {
 
     public Mascota() {
         initComponents();
+        aplicarEstilo();
         cargarClientes();
         cargarDatos();
+    }
+
+    private void aplicarEstilo() {
+        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
+        Utilidades.estilizarTabla(tblMascotas);
+        for (javax.swing.JButton b : new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar, btnLimpiar})
+            Utilidades.estilizarBoton(b);
     }
 
     private void cargarClientes() {

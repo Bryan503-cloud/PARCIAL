@@ -20,6 +20,7 @@ public class Veterinario extends javax.swing.JInternalFrame {
      */
     public Veterinario() {
         initComponents();
+        aplicarEstilo();
         cargarDatos();
         // Populate fields when a row is clicked
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -37,6 +38,13 @@ public class Veterinario extends javax.swing.JInternalFrame {
             }
         });
     }
+    private void aplicarEstilo() {
+        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
+        Utilidades.estilizarTabla(jTable1);
+        for (javax.swing.JButton b : new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar})
+            Utilidades.estilizarBoton(b);
+    }
+
     private String obj2str(Object o) { return o != null ? o.toString() : ""; }
     private void cargarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();

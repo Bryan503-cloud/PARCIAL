@@ -7,6 +7,22 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        aplicarEstilo();
+    }
+
+    private void aplicarEstilo() {
+        getContentPane().setBackground(new java.awt.Color(240, 244, 250));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
+        Utilidades.estilizarBoton(btnIngresar);
+        Utilidades.estilizarBoton(btnCancelar);
+        txtUsuario.setBackground(new java.awt.Color(252, 252, 255));
+        txtUsuario.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 200, 230)),
+            javax.swing.BorderFactory.createEmptyBorder(4, 8, 4, 8)));
+        txtContrasena.setBackground(new java.awt.Color(252, 252, 255));
+        txtContrasena.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 200, 230)),
+            javax.swing.BorderFactory.createEmptyBorder(4, 8, 4, 8)));
     }
 
     @SuppressWarnings("unchecked")

@@ -8,6 +8,7 @@ public class Reporte extends javax.swing.JInternalFrame {
 
     public Reporte() {
         initComponents();
+        aplicarEstilo();
         // Initialize date spinners: first day of current month → today
         java.util.Calendar cal = java.util.Calendar.getInstance();
         java.util.Date today = cal.getTime();
@@ -16,6 +17,16 @@ public class Reporte extends javax.swing.JInternalFrame {
         spnFechaDesde.setValue(firstOfMonth);
         spnFechaHasta.setValue(today);
         generarReportes();
+    }
+
+    private void aplicarEstilo() {
+        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
+        Utilidades.estilizarTabla(tblResumenCitas);
+        Utilidades.estilizarTabla(tblIngresos);
+        Utilidades.estilizarTabla(tblMascotasEspecie);
+        Utilidades.estilizarTabla(tblMejoresClientes);
+        Utilidades.estilizarBoton(btnGenerar);
     }
 
     private String spnToStr(javax.swing.JSpinner spn) {

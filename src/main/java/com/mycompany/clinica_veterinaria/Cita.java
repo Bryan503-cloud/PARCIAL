@@ -10,8 +10,20 @@ public class Cita extends javax.swing.JInternalFrame {
 
     public Cita() {
         initComponents();
+        aplicarEstilo();
         cargarCombos();
         cargarCitas();
+    }
+
+    private void aplicarEstilo() {
+        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
+        Utilidades.estilizarTabla(tblCitas);
+        Utilidades.estilizarTabla(tblServiciosCita);
+        for (javax.swing.JButton b : new javax.swing.JButton[]{
+                btnGuardarCita, btnEditarCita, btnEliminarCita, btnLimpiarCita,
+                btnAgregarServicio, btnQuitarServicio})
+            Utilidades.estilizarBoton(b);
     }
 
     private void cargarCombos() {

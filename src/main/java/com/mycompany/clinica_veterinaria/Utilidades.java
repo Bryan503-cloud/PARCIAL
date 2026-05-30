@@ -68,4 +68,56 @@ public class Utilidades {
         return JOptionPane.showConfirmDialog(parent, mensaje, "Confirmar acción",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
+
+    /**
+     * Aplica estilo visual moderno a una JTable:
+     * filas alternas azul/blanco, cabecera azul, selección celeste.
+     */
+    public static void estilizarTabla(javax.swing.JTable tabla) {
+        tabla.setRowHeight(28);
+        tabla.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        tabla.setSelectionBackground(new java.awt.Color(173, 216, 230));
+        tabla.setSelectionForeground(new java.awt.Color(20, 20, 20));
+        tabla.setGridColor(new java.awt.Color(210, 225, 240));
+        tabla.setShowGrid(true);
+        tabla.setIntercellSpacing(new java.awt.Dimension(0, 1));
+
+        javax.swing.table.JTableHeader header = tabla.getTableHeader();
+        header.setBackground(new java.awt.Color(25, 90, 150));
+        header.setForeground(java.awt.Color.WHITE);
+        header.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        header.setReorderingAllowed(false);
+        try {
+            ((javax.swing.table.DefaultTableCellRenderer) header.getDefaultRenderer())
+                .setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        } catch (Exception ignored) {}
+
+        tabla.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    javax.swing.JTable t, Object value, boolean isSelected,
+                    boolean hasFocus, int row, int col) {
+                super.getTableCellRendererComponent(t, value, isSelected, hasFocus, row, col);
+                setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 2, 8));
+                if (!isSelected) {
+                    setBackground(row % 2 == 0
+                        ? java.awt.Color.WHITE
+                        : new java.awt.Color(235, 244, 255));
+                    setForeground(new java.awt.Color(35, 35, 35));
+                }
+                return this;
+            }
+        });
+    }
+
+    /**
+     * Aplica estilo visual moderno a un JButton:
+     * sin borde de foco, cursor de mano, opaco.
+     */
+    public static void estilizarBoton(javax.swing.JButton btn) {
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn.setOpaque(true);
+    }
 }
