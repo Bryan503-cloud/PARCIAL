@@ -81,7 +81,7 @@ public class GestionUsuarios extends javax.swing.JInternalFrame {
         lblPassword.setText("Contraseña:");
 
         lblNombreCompleto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblNombreCompleto.setText("Email:");
+        lblNombreCompleto.setText("Nombre Completo:");
 
         lblRol.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblRol.setText("Rol:");
@@ -174,8 +174,8 @@ public class GestionUsuarios extends javax.swing.JInternalFrame {
                                 .addComponent(btnEliminar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnLimpiar)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addGap(0, 4, Short.MAX_VALUE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +327,6 @@ public class GestionUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNombreCompleto;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblRol;
-    private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPanel pnlHeader;
     private javax.swing.JTable tblUsuarios;

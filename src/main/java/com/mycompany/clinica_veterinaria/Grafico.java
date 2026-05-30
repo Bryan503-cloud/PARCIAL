@@ -198,40 +198,70 @@ public class Grafico extends javax.swing.JInternalFrame {
         pnlGraficoCitas = new javax.swing.JPanel();
         pnlGraficoServicios = new javax.swing.JPanel();
 
-        setClosable(true); setMaximizable(true); setResizable(true);
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Gráficos Estadísticos");
 
         pnlHeader.setBackground(new java.awt.Color(30, 100, 160));
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 18));
-        lblTitulo.setForeground(java.awt.Color.WHITE);
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("  Gráficos Estadísticos");
+
         javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
         pnlHeader.setLayout(pnlHeaderLayout);
-        pnlHeaderLayout.setHorizontalGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        pnlHeaderLayout.setVerticalGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHeaderLayout.createSequentialGroup().addGap(12).addComponent(lblTitulo).addGap(12)));
+        pnlHeaderLayout.setHorizontalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnlHeaderLayout.setVerticalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHeaderLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblTitulo)
+                .addGap(12, 12, 12))
+        );
 
-        btnActualizar.setBackground(new java.awt.Color(30, 100, 160)); btnActualizar.setForeground(java.awt.Color.WHITE);
-        btnActualizar.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); btnActualizar.setText("Actualizar");
+        btnActualizar.setBackground(new java.awt.Color(30, 100, 160));
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { btnActualizarActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
         });
 
-        pnlGraficoCitas.setBackground(java.awt.Color.WHITE);
-        pnlGraficoServicios.setBackground(java.awt.Color.WHITE);
+        pnlGraficoCitas.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlGraficoCitasLayout = new javax.swing.GroupLayout(pnlGraficoCitas);
         pnlGraficoCitas.setLayout(pnlGraficoCitasLayout);
-        pnlGraficoCitasLayout.setHorizontalGroup(pnlGraficoCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 400, Short.MAX_VALUE));
-        pnlGraficoCitasLayout.setVerticalGroup(pnlGraficoCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 300, Short.MAX_VALUE));
-        jTabbedPane1.addTab("Citas por Estado", pnlGraficoCitas);
+        pnlGraficoCitasLayout.setHorizontalGroup(
+            pnlGraficoCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 721, Short.MAX_VALUE)
+        );
+        pnlGraficoCitasLayout.setVerticalGroup(
+            pnlGraficoCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab1", pnlGraficoCitas);
+
+        pnlGraficoServicios.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout pnlGraficoServiciosLayout = new javax.swing.GroupLayout(pnlGraficoServicios);
         pnlGraficoServicios.setLayout(pnlGraficoServiciosLayout);
-        pnlGraficoServiciosLayout.setHorizontalGroup(pnlGraficoServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 400, Short.MAX_VALUE));
-        pnlGraficoServiciosLayout.setVerticalGroup(pnlGraficoServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 300, Short.MAX_VALUE));
-        jTabbedPane1.addTab("Servicios más Usados", pnlGraficoServicios);
+        pnlGraficoServiciosLayout.setHorizontalGroup(
+            pnlGraficoServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 721, Short.MAX_VALUE)
+        );
+        pnlGraficoServiciosLayout.setVerticalGroup(
+            pnlGraficoServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab2", pnlGraficoServicios);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -239,21 +269,21 @@ public class Grafico extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnActualizar)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10)
+                .addGap(10, 10, 10)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10))
+                .addGap(8, 8, 8)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         pack();
