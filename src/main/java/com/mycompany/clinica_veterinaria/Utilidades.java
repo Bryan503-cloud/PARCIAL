@@ -56,6 +56,65 @@ public class Utilidades {
         try { return Double.parseDouble(s.trim()) >= 0; } catch (Exception e) { return false; }
     }
 
+    /**
+     * true si el valor solo contiene letras (incluye tildes, ñ),
+     * espacios, guiones y apóstrofes. No permite dígitos ni símbolos.
+     */
+    public static boolean validarSoloLetras(String valor) {
+        if (valor == null || valor.trim().isEmpty()) return false;
+        return valor.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ '\\-]+");
+    }
+
+    /**
+     * Aplica un DocumentFilter al JTextField para que SOLO acepte letras
+     * (con tildes, ñ), espacios y guiones — bloquea dígitos y símbolos
+     * tanto al escribir como al pegar texto.
+     */
+    public static void soloLetras(javax.swing.JTextField campo) {
+        ((javax.swing.text.AbstractDocument) campo.getDocument())
+            .setDocumentFilter(new javax.swing.text.DocumentFilter() {
+                private boolean esValido(String s) {
+                    return s.matches("[a-zA-ZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙñÑüÜ '\\-]*");
+                }
+                @Override
+                public void insertString(FilterBypass fb, int off, String str,
+                        javax.swing.text.AttributeSet a)
+                        throws javax.swing.text.BadLocationException {
+                    if (str != null && esValido(str)) super.insertString(fb, off, str, a);
+                }
+                @Override
+                public void replace(FilterBypass fb, int off, int len, String str,
+                        javax.swing.text.AttributeSet a)
+                        throws javax.swing.text.BadLocationException {
+                    if (str != null && esValido(str)) super.replace(fb, off, len, str, a);
+                }
+            });
+    }
+
+    /**
+     * Aplica un DocumentFilter al JTextField para que SOLO acepte dígitos,
+     * punto decimal y signo negativo (para campos de precio/cantidad).
+     */
+    public static void soloNumerosDecimales(javax.swing.JTextField campo) {
+        ((javax.swing.text.AbstractDocument) campo.getDocument())
+            .setDocumentFilter(new javax.swing.text.DocumentFilter() {
+                @Override
+                public void insertString(FilterBypass fb, int off, String str,
+                        javax.swing.text.AttributeSet a)
+                        throws javax.swing.text.BadLocationException {
+                    if (str != null && str.matches("[0-9.]*"))
+                        super.insertString(fb, off, str, a);
+                }
+                @Override
+                public void replace(FilterBypass fb, int off, int len, String str,
+                        javax.swing.text.AttributeSet a)
+                        throws javax.swing.text.BadLocationException {
+                    if (str != null && str.matches("[0-9.]*"))
+                        super.replace(fb, off, len, str, a);
+                }
+            });
+    }
+
     public static void mostrarError(java.awt.Component parent, String mensaje) {
         JOptionPane.showMessageDialog(parent, mensaje, "Error de validación", JOptionPane.ERROR_MESSAGE);
     }
@@ -69,55 +128,4 @@ public class Utilidades {
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 
-    /**
-     * Aplica estilo visual moderno a una JTable:
-     * filas alternas azul/blanco, cabecera azul, selección celeste.
-     */
-    public static void estilizarTabla(javax.swing.JTable tabla) {
-        tabla.setRowHeight(28);
-        tabla.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-        tabla.setSelectionBackground(new java.awt.Color(173, 216, 230));
-        tabla.setSelectionForeground(new java.awt.Color(20, 20, 20));
-        tabla.setGridColor(new java.awt.Color(210, 225, 240));
-        tabla.setShowGrid(true);
-        tabla.setIntercellSpacing(new java.awt.Dimension(0, 1));
-
-        javax.swing.table.JTableHeader header = tabla.getTableHeader();
-        header.setBackground(new java.awt.Color(25, 90, 150));
-        header.setForeground(java.awt.Color.WHITE);
-        header.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-        header.setReorderingAllowed(false);
-        try {
-            ((javax.swing.table.DefaultTableCellRenderer) header.getDefaultRenderer())
-                .setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        } catch (Exception ignored) {}
-
-        tabla.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
-            @Override
-            public java.awt.Component getTableCellRendererComponent(
-                    javax.swing.JTable t, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int col) {
-                super.getTableCellRendererComponent(t, value, isSelected, hasFocus, row, col);
-                setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 8, 2, 8));
-                if (!isSelected) {
-                    setBackground(row % 2 == 0
-                        ? java.awt.Color.WHITE
-                        : new java.awt.Color(235, 244, 255));
-                    setForeground(new java.awt.Color(35, 35, 35));
-                }
-                return this;
-            }
-        });
-    }
-
-    /**
-     * Aplica estilo visual moderno a un JButton:
-     * sin borde de foco, cursor de mano, opaco.
-     */
-    public static void estilizarBoton(javax.swing.JButton btn) {
-        btn.setFocusPainted(false);
-        btn.setBorderPainted(false);
-        btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn.setOpaque(true);
-    }
 }

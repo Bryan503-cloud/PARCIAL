@@ -11,18 +11,9 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void aplicarEstilo() {
-        getContentPane().setBackground(new java.awt.Color(240, 244, 250));
-        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
-        Utilidades.estilizarBoton(btnIngresar);
-        Utilidades.estilizarBoton(btnCancelar);
-        txtUsuario.setBackground(new java.awt.Color(252, 252, 255));
-        txtUsuario.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 200, 230)),
-            javax.swing.BorderFactory.createEmptyBorder(4, 8, 4, 8)));
-        txtContrasena.setBackground(new java.awt.Color(252, 252, 255));
-        txtContrasena.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 200, 230)),
-            javax.swing.BorderFactory.createEmptyBorder(4, 8, 4, 8)));
+        EstiloUI.aplicarLogin(getContentPane(), pnlHeader,
+            new javax.swing.JTextField[]{txtUsuario, txtContrasena},
+            new javax.swing.JButton[]{btnIngresar, btnCancelar});
     }
 
     @SuppressWarnings("unchecked")
@@ -159,14 +150,6 @@ public class Login extends javax.swing.JFrame {
 
         if (Utilidades.campoVacio(usuario) || Utilidades.campoVacio(contrasena)) {
             lblError.setText("Complete todos los campos.");
-            return;
-        }
-        if (!Utilidades.validarLongitud(usuario, 3, 50)) {
-            lblError.setText("El usuario debe tener entre 3 y 50 caracteres.");
-            return;
-        }
-        if (!Utilidades.validarLongitud(contrasena, 6, 100)) {
-            lblError.setText("La contraseña debe tener al menos 6 caracteres.");
             return;
         }
 

@@ -12,11 +12,9 @@ public class GestionUsuarios extends javax.swing.JInternalFrame {
     }
 
     private void aplicarEstilo() {
-        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
-        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
-        Utilidades.estilizarTabla(tblUsuarios);
-        for (javax.swing.JButton b : new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar, btnLimpiar})
-            Utilidades.estilizarBoton(b);
+        EstiloUI.aplicarVentana(getContentPane(), pnlHeader,
+            new javax.swing.JTable[]{tblUsuarios},
+            new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar, btnLimpiar});
     }
 
     private void cargarDatos() {
@@ -255,6 +253,9 @@ public class GestionUsuarios extends javax.swing.JInternalFrame {
             Connection con = Conexion.getConnection();
             if (con == null) return;
             String password = new String(txtPassword.getPassword()).trim();
+            if (!password.isEmpty() && !Utilidades.validarLongitud(password, 6, 100)) {
+                Utilidades.mostrarError(this, "La nueva contraseña debe tener al menos 6 caracteres."); return;
+            }
             if (!password.isEmpty()) {
                 PreparedStatement ps = con.prepareStatement(
                     "UPDATE USUARIO SET email=?, rol=?, estado=?, password_hash=? WHERE id_usuario=?");

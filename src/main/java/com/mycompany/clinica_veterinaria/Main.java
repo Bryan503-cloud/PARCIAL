@@ -18,9 +18,13 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void aplicarEstiloMain() {
-        jDesktopPane1.setBackground(new java.awt.Color(220, 232, 245));
-        pnlStatus.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 0, 0, new java.awt.Color(10, 60, 120)));
-        lblUsuarioActual.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        EstiloUI.aplicarMain(jDesktopPane1, jMenuBar1, lblUsuarioActual, pnlStatus,
+            new javax.swing.JMenu[]{menuAdministracion, menuRegistros, menuOperaciones,
+                                    menuReportes, menuSesion},
+            new javax.swing.JMenuItem[]{mniGestionUsuarios, mniClientes, mniMascotas,
+                                        mniVeterinarios, mniServicios, mniCitas,
+                                        mniReportes, mniGraficos},
+            mniCerrarSesion);
     }
 
     /** Muestra u oculta menús según el rol del usuario autenticado. */

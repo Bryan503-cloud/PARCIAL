@@ -8,16 +8,20 @@ public class Mascota extends javax.swing.JInternalFrame {
     public Mascota() {
         initComponents();
         aplicarEstilo();
+        aplicarFiltros();
         cargarClientes();
         cargarDatos();
     }
 
+    private void aplicarFiltros() {
+        Utilidades.soloLetras(txtNombre);
+        Utilidades.soloLetras(txtApellido);
+    }
+
     private void aplicarEstilo() {
-        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
-        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
-        Utilidades.estilizarTabla(tblMascotas);
-        for (javax.swing.JButton b : new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar, btnLimpiar})
-            Utilidades.estilizarBoton(b);
+        EstiloUI.aplicarVentana(getContentPane(), pnlHeader,
+            new javax.swing.JTable[]{tblMascotas},
+            new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar, btnLimpiar});
     }
 
     private void cargarClientes() {
@@ -272,7 +276,14 @@ public class Mascota extends javax.swing.JInternalFrame {
         if (idCliente == -1) { Utilidades.mostrarError(this, "Seleccione un cliente."); return; }
         String nombre = txtNombre.getText().trim();
         if (Utilidades.campoVacio(nombre)) { Utilidades.mostrarError(this, "El nombre es obligatorio."); return; }
-        String fechaNac = new java.text.SimpleDateFormat("yyyy-MM-dd").format((java.util.Date) spnFechaNacimiento.getValue());
+        if (!Utilidades.validarSoloLetras(nombre)) { Utilidades.mostrarError(this, "El nombre solo puede contener letras."); return; }
+        String apellidoMasc = txtApellido.getText().trim();
+        if (!apellidoMasc.isEmpty() && !Utilidades.validarSoloLetras(apellidoMasc)) { Utilidades.mostrarError(this, "El apellido solo puede contener letras."); return; }
+        java.util.Date fechaSeleccionada = (java.util.Date) spnFechaNacimiento.getValue();
+        if (fechaSeleccionada.after(new java.util.Date())) {
+            Utilidades.mostrarError(this, "La fecha de nacimiento no puede ser una fecha futura."); return;
+        }
+        String fechaNac = new java.text.SimpleDateFormat("yyyy-MM-dd").format(fechaSeleccionada);
         try {
             Connection con = Conexion.getConnection();
             if (con == null) return;
@@ -303,6 +314,13 @@ public class Mascota extends javax.swing.JInternalFrame {
         if (idCliente == -1) { Utilidades.mostrarError(this, "Seleccione un cliente."); return; }
         String nombre = txtNombre.getText().trim();
         if (Utilidades.campoVacio(nombre)) { Utilidades.mostrarError(this, "El nombre es obligatorio."); return; }
+        if (!Utilidades.validarSoloLetras(nombre)) { Utilidades.mostrarError(this, "El nombre solo puede contener letras."); return; }
+        String apellidoMasc = txtApellido.getText().trim();
+        if (!apellidoMasc.isEmpty() && !Utilidades.validarSoloLetras(apellidoMasc)) { Utilidades.mostrarError(this, "El apellido solo puede contener letras."); return; }
+        java.util.Date fechaEdit = (java.util.Date) spnFechaNacimiento.getValue();
+        if (fechaEdit.after(new java.util.Date())) {
+            Utilidades.mostrarError(this, "La fecha de nacimiento no puede ser una fecha futura."); return;
+        }
         try {
             Connection con = Conexion.getConnection();
             if (con == null) return;
@@ -314,7 +332,7 @@ public class Mascota extends javax.swing.JInternalFrame {
             ps.setString(4, cmbEspecie.getSelectedItem().toString());
             ps.setString(5, txtRaza.getText().trim());
             ps.setString(6, cmbGenero.getSelectedItem().toString());
-            ps.setString(7, new java.text.SimpleDateFormat("yyyy-MM-dd").format((java.util.Date) spnFechaNacimiento.getValue()));
+            ps.setString(7, new java.text.SimpleDateFormat("yyyy-MM-dd").format(fechaEdit));
             ps.setDouble(8, ((Number) spnPeso.getValue()).doubleValue());
             ps.setString(9, txaObservaciones.getText().trim());
             ps.setInt(10, id);

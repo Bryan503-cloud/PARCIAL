@@ -13,6 +13,7 @@ public class Grafico extends javax.swing.JInternalFrame {
 
     public Grafico() {
         initComponents();
+        aplicarEstilo();
         piePanel = new PieChartPanel();
         barPanel = new BarChartPanel();
         pnlGraficoCitas.setLayout(new java.awt.BorderLayout());
@@ -20,6 +21,17 @@ public class Grafico extends javax.swing.JInternalFrame {
         pnlGraficoServicios.setLayout(new java.awt.BorderLayout());
         pnlGraficoServicios.add(barPanel, java.awt.BorderLayout.CENTER);
         cargarDatosGrafico();
+        // Repintar después de que el layout esté listo
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            piePanel.repaint();
+            barPanel.repaint();
+        });
+    }
+
+    private void aplicarEstilo() {
+        EstiloUI.aplicarVentana(getContentPane(), pnlHeader,
+            new javax.swing.JTable[]{},
+            new javax.swing.JButton[]{btnActualizar});
     }
 
     private class PieChartPanel extends javax.swing.JPanel {

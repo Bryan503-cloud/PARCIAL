@@ -21,6 +21,7 @@ public class Veterinario extends javax.swing.JInternalFrame {
     public Veterinario() {
         initComponents();
         aplicarEstilo();
+        aplicarFiltros();
         cargarDatos();
         // Populate fields when a row is clicked
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -38,11 +39,15 @@ public class Veterinario extends javax.swing.JInternalFrame {
             }
         });
     }
+    private void aplicarFiltros() {
+        Utilidades.soloLetras(txtNombre);
+        Utilidades.soloLetras(txtApellido);
+    }
+
     private void aplicarEstilo() {
-        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
-        Utilidades.estilizarTabla(jTable1);
-        for (javax.swing.JButton b : new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar})
-            Utilidades.estilizarBoton(b);
+        EstiloUI.aplicarVentana(getContentPane(), null,
+            new javax.swing.JTable[]{jTable1},
+            new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar});
     }
 
     private String obj2str(Object o) { return o != null ? o.toString() : ""; }
@@ -322,8 +327,14 @@ public class Veterinario extends javax.swing.JInternalFrame {
         if (Utilidades.campoVacio(nombre)) {
             Utilidades.mostrarError(this, "El nombre es obligatorio."); return;
         }
+        if (!Utilidades.validarSoloLetras(nombre)) {
+            Utilidades.mostrarError(this, "El nombre solo puede contener letras."); return;
+        }
         if (Utilidades.campoVacio(apellido)) {
             Utilidades.mostrarError(this, "El apellido es obligatorio."); return;
+        }
+        if (!Utilidades.validarSoloLetras(apellido)) {
+            Utilidades.mostrarError(this, "El apellido solo puede contener letras."); return;
         }
         if (!dui.isEmpty() && !Utilidades.validarDUI(dui)) {
             Utilidades.mostrarError(this, "DUI inválido. Formato: 00000000-0"); return;
@@ -380,8 +391,14 @@ public class Veterinario extends javax.swing.JInternalFrame {
         if (Utilidades.campoVacio(nombre)) {
             Utilidades.mostrarError(this, "El nombre es obligatorio."); return;
         }
+        if (!Utilidades.validarSoloLetras(nombre)) {
+            Utilidades.mostrarError(this, "El nombre solo puede contener letras."); return;
+        }
         if (Utilidades.campoVacio(apellido)) {
             Utilidades.mostrarError(this, "El apellido es obligatorio."); return;
+        }
+        if (!Utilidades.validarSoloLetras(apellido)) {
+            Utilidades.mostrarError(this, "El apellido solo puede contener letras."); return;
         }
         if (!dui.isEmpty() && !Utilidades.validarDUI(dui)) {
             Utilidades.mostrarError(this, "DUI inválido. Formato: 00000000-0"); return;

@@ -16,14 +16,10 @@ public class Cita extends javax.swing.JInternalFrame {
     }
 
     private void aplicarEstilo() {
-        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
-        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
-        Utilidades.estilizarTabla(tblCitas);
-        Utilidades.estilizarTabla(tblServiciosCita);
-        for (javax.swing.JButton b : new javax.swing.JButton[]{
-                btnGuardarCita, btnEditarCita, btnEliminarCita, btnLimpiarCita,
-                btnAgregarServicio, btnQuitarServicio})
-            Utilidades.estilizarBoton(b);
+        EstiloUI.aplicarVentana(getContentPane(), pnlHeader,
+            new javax.swing.JTable[]{tblCitas, tblServiciosCita},
+            new javax.swing.JButton[]{btnGuardarCita, btnEditarCita, btnEliminarCita,
+                                      btnLimpiarCita, btnAgregarServicio, btnQuitarServicio});
     }
 
     private void cargarCombos() {
@@ -388,6 +384,16 @@ public class Cita extends javax.swing.JInternalFrame {
         if (idMascota == -1 || idVeterinario == -1) { Utilidades.mostrarError(this, "Seleccione mascota y veterinario."); return; }
         if (modeloServicios.getRowCount() == 0) { Utilidades.mostrarError(this, "Agregue al menos un servicio."); return; }
         java.sql.Timestamp fechaHora = getCitaTimestamp();
+        long ahora = System.currentTimeMillis();
+        // Advertir si la cita ya pasó (con 5 min de tolerancia)
+        if (fechaHora.getTime() < ahora - 300_000L) {
+            if (!Utilidades.confirmar(this, "La fecha/hora seleccionada ya pasó.\n¿Desea guardar la cita de todas formas?")) return;
+        }
+        // Bloquear si la cita es más de 2 años en el futuro
+        long dosAnios = 2L * 365 * 24 * 60 * 60 * 1000;
+        if (fechaHora.getTime() > ahora + dosAnios) {
+            Utilidades.mostrarError(this, "La fecha de la cita no puede ser más de 2 años en el futuro."); return;
+        }
 
         Connection con = null;
         try {

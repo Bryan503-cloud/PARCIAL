@@ -8,15 +8,19 @@ public class Cliente extends javax.swing.JInternalFrame {
     public Cliente() {
         initComponents();
         aplicarEstilo();
+        aplicarFiltros();
         cargarDatos();
     }
 
+    private void aplicarFiltros() {
+        Utilidades.soloLetras(txtNombre);
+        Utilidades.soloLetras(txtApellido);
+    }
+
     private void aplicarEstilo() {
-        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
-        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
-        Utilidades.estilizarTabla(tblClientes);
-        for (javax.swing.JButton b : new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar, btnLimpiar, btnBuscar})
-            Utilidades.estilizarBoton(b);
+        EstiloUI.aplicarVentana(getContentPane(), pnlHeader,
+            new javax.swing.JTable[]{tblClientes},
+            new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar, btnLimpiar, btnBuscar});
     }
 
     private void cargarDatos() {
@@ -218,6 +222,12 @@ public class Cliente extends javax.swing.JInternalFrame {
         if (Utilidades.campoVacio(nombre) || Utilidades.campoVacio(apellido)) {
             Utilidades.mostrarError(this, "Nombre y Apellido son obligatorios."); return;
         }
+        if (!Utilidades.validarSoloLetras(nombre)) {
+            Utilidades.mostrarError(this, "El nombre solo puede contener letras."); return;
+        }
+        if (!Utilidades.validarSoloLetras(apellido)) {
+            Utilidades.mostrarError(this, "El apellido solo puede contener letras."); return;
+        }
         String tel = txtTelefono.getText().trim();
         if (!dui.isEmpty() && !Utilidades.validarDUI(dui)) {
             Utilidades.mostrarError(this, "DUI inválido. Formato: 00000000-0"); return;
@@ -257,6 +267,12 @@ public class Cliente extends javax.swing.JInternalFrame {
         String telE = txtTelefono.getText().trim();
         if (Utilidades.campoVacio(nombre) || Utilidades.campoVacio(apellido)) {
             Utilidades.mostrarError(this, "Nombre y Apellido son obligatorios."); return;
+        }
+        if (!Utilidades.validarSoloLetras(nombre)) {
+            Utilidades.mostrarError(this, "El nombre solo puede contener letras."); return;
+        }
+        if (!Utilidades.validarSoloLetras(apellido)) {
+            Utilidades.mostrarError(this, "El apellido solo puede contener letras."); return;
         }
         if (!duiE.isEmpty() && !Utilidades.validarDUI(duiE)) {
             Utilidades.mostrarError(this, "DUI inválido. Formato: 00000000-0"); return;

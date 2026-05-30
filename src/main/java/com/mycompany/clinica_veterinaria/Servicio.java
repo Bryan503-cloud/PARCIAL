@@ -8,15 +8,18 @@ public class Servicio extends javax.swing.JInternalFrame {
     public Servicio() {
         initComponents();
         aplicarEstilo();
+        aplicarFiltros();
         cargarDatos();
     }
 
+    private void aplicarFiltros() {
+        Utilidades.soloNumerosDecimales(txtPrecio);
+    }
+
     private void aplicarEstilo() {
-        getContentPane().setBackground(new java.awt.Color(245, 248, 252));
-        pnlHeader.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 4, 0, new java.awt.Color(10, 60, 120)));
-        Utilidades.estilizarTabla(tblServicios);
-        for (javax.swing.JButton b : new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar, btnLimpiar})
-            Utilidades.estilizarBoton(b);
+        EstiloUI.aplicarVentana(getContentPane(), pnlHeader,
+            new javax.swing.JTable[]{tblServicios},
+            new javax.swing.JButton[]{btnGuardar, btnEditar, btnEliminar, btnLimpiar});
     }
 
     private void cargarDatos() {
