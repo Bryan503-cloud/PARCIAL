@@ -489,9 +489,9 @@ public class Reporte extends javax.swing.JInternalFrame {
         pnlHeader = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         lblFechaDesde = new javax.swing.JLabel();
-        spnFechaDesde = new javax.swing.JSpinner(new javax.swing.SpinnerDateModel());
+        spnFechaDesde = new javax.swing.JSpinner();
         lblFechaHasta = new javax.swing.JLabel();
-        spnFechaHasta = new javax.swing.JSpinner(new javax.swing.SpinnerDateModel());
+        spnFechaHasta = new javax.swing.JSpinner();
         btnGenerar = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnlResumen = new javax.swing.JPanel();
@@ -507,70 +507,106 @@ public class Reporte extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblMejoresClientes = new javax.swing.JTable();
 
-        setClosable(true); setMaximizable(true); setResizable(true);
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Reportes");
 
         pnlHeader.setBackground(new java.awt.Color(30, 100, 160));
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 18));
-        lblTitulo.setForeground(java.awt.Color.WHITE);
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setText("  Reportes del Sistema");
+
         javax.swing.GroupLayout pnlHeaderLayout = new javax.swing.GroupLayout(pnlHeader);
         pnlHeader.setLayout(pnlHeaderLayout);
-        pnlHeaderLayout.setHorizontalGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        pnlHeaderLayout.setVerticalGroup(pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHeaderLayout.createSequentialGroup().addGap(12).addComponent(lblTitulo).addGap(12)));
+        pnlHeaderLayout.setHorizontalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnlHeaderLayout.setVerticalGroup(
+            pnlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHeaderLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblTitulo)
+                .addGap(12, 12, 12))
+        );
 
-        lblFechaDesde.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); lblFechaDesde.setText("Fecha Desde:");
-        spnFechaDesde.setEditor(new javax.swing.JSpinner.DateEditor(spnFechaDesde, "yyyy-MM-dd"));
-        lblFechaHasta.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); lblFechaHasta.setText("Fecha Hasta:");
-        spnFechaHasta.setEditor(new javax.swing.JSpinner.DateEditor(spnFechaHasta, "yyyy-MM-dd"));
+        lblFechaDesde.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblFechaDesde.setText("Fecha Desde:");
 
-        btnGenerar.setBackground(new java.awt.Color(30, 100, 160)); btnGenerar.setForeground(java.awt.Color.WHITE);
-        btnGenerar.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12)); btnGenerar.setText("Generar");
+        lblFechaHasta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblFechaHasta.setText("Fecha Hasta:");
+
+        btnGenerar.setBackground(new java.awt.Color(30, 100, 160));
+        btnGenerar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGenerar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerar.setText("Generar");
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) { btnGenerarActionPerformed(evt); }
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarActionPerformed(evt);
+            }
         });
 
-        tblResumenCitas.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
         jScrollPane1.setViewportView(tblResumenCitas);
+
         javax.swing.GroupLayout pnlResumenLayout = new javax.swing.GroupLayout(pnlResumen);
         pnlResumen.setLayout(pnlResumenLayout);
-        pnlResumenLayout.setHorizontalGroup(pnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        pnlResumenLayout.setVerticalGroup(pnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        jTabbedPane1.addTab("Resumen de Citas", pnlResumen);
+        pnlResumenLayout.setHorizontalGroup(
+            pnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+        );
+        pnlResumenLayout.setVerticalGroup(
+            pnlResumenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+        );
 
-        tblIngresos.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+        jTabbedPane1.addTab("tab1", pnlResumen);
+
         jScrollPane2.setViewportView(tblIngresos);
+
         javax.swing.GroupLayout pnlIngresosLayout = new javax.swing.GroupLayout(pnlIngresos);
         pnlIngresos.setLayout(pnlIngresosLayout);
-        pnlIngresosLayout.setHorizontalGroup(pnlIngresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        pnlIngresosLayout.setVerticalGroup(pnlIngresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        jTabbedPane1.addTab("Ingresos", pnlIngresos);
+        pnlIngresosLayout.setHorizontalGroup(
+            pnlIngresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+        );
+        pnlIngresosLayout.setVerticalGroup(
+            pnlIngresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2)
+        );
 
-        tblMascotasEspecie.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+        jTabbedPane1.addTab("tab2", pnlIngresos);
+
         jScrollPane3.setViewportView(tblMascotasEspecie);
+
         javax.swing.GroupLayout pnlEspecieLayout = new javax.swing.GroupLayout(pnlEspecie);
         pnlEspecie.setLayout(pnlEspecieLayout);
-        pnlEspecieLayout.setHorizontalGroup(pnlEspecieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        pnlEspecieLayout.setVerticalGroup(pnlEspecieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        jTabbedPane1.addTab("Mascotas por Especie", pnlEspecie);
+        pnlEspecieLayout.setHorizontalGroup(
+            pnlEspecieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+        );
+        pnlEspecieLayout.setVerticalGroup(
+            pnlEspecieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3)
+        );
 
-        tblMejoresClientes.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+        jTabbedPane1.addTab("tab3", pnlEspecie);
+
         jScrollPane4.setViewportView(tblMejoresClientes);
+
         javax.swing.GroupLayout pnlClientesLayout = new javax.swing.GroupLayout(pnlClientes);
         pnlClientes.setLayout(pnlClientesLayout);
-        pnlClientesLayout.setHorizontalGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        pnlClientesLayout.setVerticalGroup(pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        jTabbedPane1.addTab("Mejores Clientes", pnlClientes);
+        pnlClientesLayout.setHorizontalGroup(
+            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+        );
+        pnlClientesLayout.setVerticalGroup(
+            pnlClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4)
+        );
+
+        jTabbedPane1.addTab("tab4", pnlClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -578,36 +614,37 @@ public class Reporte extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblFechaDesde)
                             .addComponent(spnFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblFechaHasta)
                             .addComponent(spnFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15)
+                        .addGap(15, 15, 15)
                         .addComponent(btnGenerar))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblFechaDesde).addComponent(lblFechaHasta))
-                .addGap(4)
+                    .addComponent(lblFechaDesde)
+                    .addComponent(lblFechaHasta))
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnFechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spnFechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGenerar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10))
+                .addGap(10, 10, 10)
+                .addComponent(jTabbedPane1)
+                .addGap(10, 10, 10))
         );
 
         pack();

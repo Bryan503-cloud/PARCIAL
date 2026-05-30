@@ -241,6 +241,15 @@ public class Cliente extends javax.swing.JInternalFrame {
         try {
             Connection con = Conexion.getConnection();
             if (con == null) return;
+            // Verificar DUI duplicado
+            if (!dui.isEmpty()) {
+                PreparedStatement chk = con.prepareStatement("SELECT COUNT(*) FROM CLIENTE WHERE dui = ?");
+                chk.setString(1, dui);
+                ResultSet rs = chk.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    Utilidades.mostrarError(this, "Ya existe un cliente registrado con ese DUI."); con.close(); return;
+                }
+            }
             PreparedStatement ps = con.prepareStatement(
                 "INSERT INTO CLIENTE (nombre, apellido, dui, telefono, correo, direccion) VALUES (?, ?, ?, ?, ?, ?)");
             ps.setString(1, nombre); ps.setString(2, apellido);
@@ -286,10 +295,20 @@ public class Cliente extends javax.swing.JInternalFrame {
         try {
             Connection con = Conexion.getConnection();
             if (con == null) return;
+            // Verificar DUI duplicado en otro cliente distinto
+            String duiEdit = txtDui.getText().trim();
+            if (!duiEdit.isEmpty()) {
+                PreparedStatement chk = con.prepareStatement("SELECT COUNT(*) FROM CLIENTE WHERE dui = ? AND id_cliente != ?");
+                chk.setString(1, duiEdit); chk.setInt(2, id);
+                ResultSet rs = chk.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    Utilidades.mostrarError(this, "Ya existe otro cliente registrado con ese DUI."); con.close(); return;
+                }
+            }
             PreparedStatement ps = con.prepareStatement(
                 "UPDATE CLIENTE SET nombre=?, apellido=?, dui=?, telefono=?, correo=?, direccion=? WHERE id_cliente=?");
             ps.setString(1, nombre); ps.setString(2, apellido);
-            ps.setString(3, txtDui.getText().trim()); ps.setString(4, txtTelefono.getText().trim());
+            ps.setString(3, duiEdit); ps.setString(4, txtTelefono.getText().trim());
             ps.setString(5, txtCorreo.getText().trim()); ps.setString(6, txtDireccion.getText().trim());
             ps.setInt(7, id); ps.executeUpdate(); con.close();
             Utilidades.mostrarExito(this, "Cliente actualizado.");

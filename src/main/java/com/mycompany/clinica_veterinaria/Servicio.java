@@ -185,6 +185,7 @@ public class Servicio extends javax.swing.JInternalFrame {
         String nombre = txtNombre.getText().trim();
         String precioStr = txtPrecio.getText().trim();
         if (Utilidades.campoVacio(nombre)) { Utilidades.mostrarError(this, "El nombre es obligatorio."); return; }
+        if (!Utilidades.validarLongitud(nombre, 3, 100)) { Utilidades.mostrarError(this, "El nombre del servicio debe tener al menos 3 caracteres."); return; }
         if (Utilidades.campoVacio(precioStr)) { Utilidades.mostrarError(this, "El precio es obligatorio."); return; }
         try {
             double precio = Double.parseDouble(precioStr);
@@ -214,6 +215,7 @@ public class Servicio extends javax.swing.JInternalFrame {
         String nombre = txtNombre.getText().trim();
         String precioStrE = txtPrecio.getText().trim();
         if (Utilidades.campoVacio(nombre)) { Utilidades.mostrarError(this, "El nombre es obligatorio."); return; }
+        if (!Utilidades.validarLongitud(nombre, 3, 100)) { Utilidades.mostrarError(this, "El nombre del servicio debe tener al menos 3 caracteres."); return; }
         if (Utilidades.campoVacio(precioStrE)) { Utilidades.mostrarError(this, "El precio es obligatorio."); return; }
         try {
             double precio = Double.parseDouble(precioStrE);

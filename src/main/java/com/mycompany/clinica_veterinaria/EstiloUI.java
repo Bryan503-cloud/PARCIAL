@@ -1,8 +1,17 @@
 package com.mycompany.clinica_veterinaria;
 
 /**
- * Clase utilitaria que centraliza todo el estilo visual de la aplicación.
- * Paleta clásica azul oscuro — buen contraste, fuentes legibles.
+ * Clase utilitaria que centraliza el estilo visual de la aplicación.
+ *
+ * REGLA DE ORO: EstiloUI NUNCA modifica fuentes, márgenes ni colores de
+ * labels o campos de texto — eso lo define el diseñador de NetBeans (.form).
+ * Solo aplica:
+ *   - Cabecera de tablas (azul, texto blanco)
+ *   - Filas alternas de tablas
+ *   - Botones (sin borde de foco, cursor de mano)
+ *   - Borde inferior del panel header
+ *   - Barra de menú y sus items
+ *   - Panel de bienvenida en el escritorio MDI
  */
 public class EstiloUI {
 
@@ -12,14 +21,14 @@ public class EstiloUI {
     static final java.awt.Color AZUL_HOVER   = new java.awt.Color(52, 110, 165);  // hover en menú
     static final java.awt.Color AZUL_TABLA   = new java.awt.Color(31,  78, 121);  // cabecera tabla
     static final java.awt.Color FILA_PAR     = java.awt.Color.WHITE;
-    static final java.awt.Color FILA_IMPAR   = new java.awt.Color(232, 241, 250); // contraste suave
-    static final java.awt.Color SELECCION    = new java.awt.Color(155, 200, 235); // fila seleccionada
+    static final java.awt.Color FILA_IMPAR   = new java.awt.Color(225, 238, 252); // azul muy suave
+    static final java.awt.Color SELECCION    = new java.awt.Color(144, 195, 235); // selección celeste
     static final java.awt.Color FONDO_FORM   = new java.awt.Color(248, 249, 251); // fondo formularios
     static final java.awt.Color FONDO_DESK   = new java.awt.Color(210, 225, 242); // escritorio MDI
-    static final java.awt.Color TEXTO_OSCURO = new java.awt.Color(25,  25,  25);  // texto principal
-    static final java.awt.Color TEXTO_LABEL  = new java.awt.Color(15,  55, 100);  // labels de form
+    static final java.awt.Color TEXTO_OSCURO = java.awt.Color.BLACK;              // texto tabla/campos
+    static final java.awt.Color TEXTO_LABEL  = new java.awt.Color(10,  10,  10);  // labels (casi negro)
 
-    // Fuentes
+    // Fuentes — tamaño 13 para legibilidad óptima
     private static final java.awt.Font FONT_NORMAL  = new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13);
     private static final java.awt.Font FONT_BOLD    = new java.awt.Font("Segoe UI", java.awt.Font.BOLD,  13);
     private static final java.awt.Font FONT_MENU    = new java.awt.Font("Segoe UI", java.awt.Font.BOLD,  13);
@@ -30,40 +39,33 @@ public class EstiloUI {
     // API pública
     // ════════════════════════════════════════════════════════════════════════
 
-    /** Estilo completo para JInternalFrames con tabla + botones. */
+    /**
+     * Estilo para JInternalFrames.
+     * Solo toca tablas y botones — respeta todo lo que el diseñador de
+     * NetBeans definió (fuentes, márgenes, colores de labels y campos).
+     */
     public static void aplicarVentana(java.awt.Container contentPane,
                                       javax.swing.JPanel header,
                                       javax.swing.JTable[] tablas,
                                       javax.swing.JButton[] botones) {
-        contentPane.setBackground(FONDO_FORM);
         if (header != null)
             header.setBorder(javax.swing.BorderFactory.createMatteBorder(
                 0, 0, 3, 0, AZUL_OSCURO));
         for (javax.swing.JTable t : tablas)   estilizarTabla(t);
         for (javax.swing.JButton b : botones) estilizarBoton(b);
-        // Recorre todos los componentes y mejora combos, spinners y campos
-        recorrerYEstilizar(contentPane);
     }
 
-    /** Estilo para Login. */
+    /** Estilo para Login — respeta el diseño del IDE. */
     public static void aplicarLogin(java.awt.Container contentPane,
                                     javax.swing.JPanel header,
                                     javax.swing.JTextField[] campos,
                                     javax.swing.JButton[] botones) {
-        contentPane.setBackground(new java.awt.Color(238, 243, 250));
         if (header != null)
             header.setBorder(javax.swing.BorderFactory.createMatteBorder(
                 0, 0, 3, 0, AZUL_OSCURO));
-        for (javax.swing.JTextField c : campos) {
-            c.setBackground(java.awt.Color.WHITE);
-            c.setForeground(TEXTO_OSCURO);
-            c.setFont(FONT_NORMAL);
-            c.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(160, 190, 220), 1),
-                javax.swing.BorderFactory.createEmptyBorder(5, 9, 5, 9)));
-        }
+        // Solo tocamos botones (cursor + sin borde de foco)
         for (javax.swing.JButton b : botones) estilizarBoton(b);
-        recorrerYEstilizar(contentPane);
+        // Los campos y labels quedan exactamente como los diseñó en el IDE
     }
 
     /** Estilo para la ventana principal. */
@@ -201,11 +203,15 @@ public class EstiloUI {
                     comp.setFont(FONT_NORMAL);
                     comp.setForeground(TEXTO_OSCURO);
                 } else if (comp instanceof javax.swing.JLabel) {
-                    // Solo si no está dentro de un header (fondo azul)
+                    // Estilizar labels de formulario, excepto los que están
+                    // dentro del panel de cabecera azul (texto blanco ya definido)
                     java.awt.Container padre = comp.getParent();
-                    if (padre == null || !AZUL_MENU.equals(padre.getBackground())) {
+                    boolean enHeader = padre != null
+                        && (AZUL_MENU.equals(padre.getBackground())
+                            || new java.awt.Color(30, 100, 160).equals(padre.getBackground()));
+                    if (!enHeader) {
                         comp.setFont(FONT_BOLD);
-                        comp.setForeground(TEXTO_LABEL);
+                        comp.setForeground(java.awt.Color.BLACK); // negro puro
                     }
                 }
                 // Entrar en sub-contenedores, pero no dentro de JTable ni JComboBox
